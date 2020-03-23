@@ -5,4 +5,7 @@ import webbrowser
 
 url = "https://bison.usgs.gov/api/search.json?species=Bison bison%type=scientific_name&start=0&count=1"
 
-webbrowser.open(url)
+#webbrowser.open(url)
+
+page = session.get(url)
+print(page.content)
