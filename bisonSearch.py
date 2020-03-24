@@ -8,4 +8,7 @@ url = "https://bison.usgs.gov/api/search.json?species=Bison%20bison&type=scienti
 #webbrowser.open(url) #uncomment to test whether url is valid
 
 match = requests.get(url)
-print(match.content)
+#print(match.content) #uncomment to test whether match is retrieved
+
+match_result = match.json()
+print(match_result)
