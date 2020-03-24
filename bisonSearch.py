@@ -20,3 +20,5 @@ match_result = match.json()
 matched_species.append(match_result)
 result = pandas.DataFrame(matched_species)
 print(result)
+
+result.to_csv('Bison_test.csv')
