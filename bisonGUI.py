@@ -1,15 +1,22 @@
-import tkinter
+import tkinter as tk
 
-window = tkinter.Tk()
+window = tk.Tk()
 
-greeting = tkinter.Label(text="Welcome to Search-Clean-Inform!")
-entry = tkinter.Entry()
-entry.insert(0, "Ex: Bison bison")
+greeting_frame = tk.Frame(master=window, height=25)
+greeting_frame.pack(fill=tk.X)
 
-greeting.pack()
-entry.pack()
+greeting_label = tk.Label(master=greeting_frame, text="Welcome to Search-Clean-Inform!")
+greeting_label.pack()
 
-species_name = entry.get()
+
+species_entry_frame = tk.Frame(master=window)
+species_entry_frame.pack(fill=tk.X)
+
+species_entry = tk.Entry(master=species_entry_frame)
+species_entry.insert(0, "Ex: Bison bison")
+species_entry.pack()
+
+species_name = species_entry.get()
 print(species_name)
 
 window.mainloop()
