@@ -4,15 +4,16 @@ import webbrowser
 import json
 import pandas
 
-url = "https://bison.usgs.gov/api/search.json?species=Bison%20bison&type=scientific_name&start=0&count=1"
+species_name = "Bison bison"
+search_url ="https://bison.usgs.gov/api/search.json?species=" + species_name + "&type=scientific_name&start=0&count=1"
 
 #webbrowser.open(url) #uncomment to test whether url is valid
 matched_species = []
-match = requests.get(url)
+match = requests.get(search_url)
 #print(match.content) #uncomment to test whether match is retrieved
 
 match_result = match.json()
-match_result["inputName"] = "Bison bison"
+#match_result["inputName"] = "Bison bison"
 #print(match_result)
 #print(match_result.type)
 
