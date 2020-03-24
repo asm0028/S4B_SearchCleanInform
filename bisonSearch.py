@@ -8,6 +8,9 @@ url = "https://bison.usgs.gov/api/search.json?species=Bison bison%type=scientifi
 
 #webbrowser.open(url)
 
-import pyops
-client = pyops.Client(description_xml_url=url)
+import opensearch
+client = Client(url)
 raw_results = client.search()
+
+for result in results:
+    print(result.title, result.link)
