@@ -26,8 +26,13 @@ go_button_frame.grid(row=2, column=0)
 go_button = tk.Button(master=go_button_frame, text = "Go!")
 go_button.grid(row=0, column=0)
 
+def handle_click(event):
+    species_name = species_entry.get()
+    print(species_name)
+    return species_name
+species_name = go_button.bind("<Button-1>", handle_click)
 
-species_name = species_entry.get()
 print(species_name)
+
 
 window.mainloop()
