@@ -14,7 +14,7 @@ import matplotlib.font_manager as fm
 
 #starting geobison block
 
-def geobison(bison_data, output=cwd, map_color='darkgray', map_size=(10,10), marker_color='red', marker_size=10, map_title="[Will insert name of user's species here]"):
+def geobison(bison_data, map_color='darkgray', map_size=(10,10), marker_color='red', marker_size=10, map_title="[Will insert name of user's species here]"):
     
     #getting USA data
     url = 'https://eric.clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_5m.json'
@@ -27,11 +27,11 @@ def geobison(bison_data, output=cwd, map_color='darkgray', map_size=(10,10), mar
     Species_data = pd.read_csv(bison_data)
     Species_data['coords'] = Species_data[['decimalLongitude', 'decimalLatitude']].values.tolist()
     Species_data['coords'] = Species_data['coords'].apply(Point)
-    Species_data = gpd.GeoDataFrame(Species_map, geometry='coords')
+    Species_data = gpd.GeoDataFrame(Species_data, geometry='coords')
     
     #mapping
     fig, ax = plt.subplots(1, figsize=map_size)
     base = CONUS.plot(ax=ax,color=map_color)
-    Species_map.plot(ax=base, color=maker_color, marker="*",markersize=marker_size)
+    Species_data.plot(ax=base, color=marker_color, marker="*",markersize=marker_size)
     ax.set_title(map_title, fontsize=25)
     plt.savefig('/Users/NickG/Documents/S4B_Project/GIS_Project_Master_Repo/test.png',bbox_inches='tight')
