@@ -14,6 +14,10 @@ match = requests.get(search_url)
 
 match_result = match.json()
 
+with open('bisonCSV.csv', 'w', newline='') as file:
+    wr = csv.writer(file)
+    wr.writerow(['scientificName','eventDate','decimalLongitude','decimalLatitude','occurrenceID','catalogNumber','institutionID'])
+
 for a in range(0, 8):
     arr = []
     for i in ['scientificName','eventDate','decimalLongitude','decimalLatitude','occurrenceID','catalogNumber','institutionID']:
@@ -22,7 +26,7 @@ for a in range(0, 8):
         else:
             arr.append('-')
     with open ('bisonCSV.csv', 'a') as file:
-        wr = csv.writer(file, dialect='excel')
+        wr = csv.writer(file)
         wr.writerow(arr)
 
 
