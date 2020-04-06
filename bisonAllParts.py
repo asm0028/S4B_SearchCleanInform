@@ -3,7 +3,7 @@
 import os
 import requests
 import json
-import tkinter as tk
+from tkinter import *
 import numpy as np
 import pandas as pd
 import geopandas as gpd
@@ -14,59 +14,38 @@ from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
 import matplotlib.font_manager as fm
 
 
+class BisonGUI:
+    def __init__(self, master):
+        self.master = master
+        master.title("Search-Clean-Inform")
 
-def build_GUI():
+        self.species_name = ""
 
-    #event handler functions
-    def handle_go_button(event):
-        species_name = species_entry.get()
-        print(species_name)
-        return species_name
+        self.label = Label(master, text="Welcome to Search-Clean-Inform")
+        self.label.grid(columnspan=2)
 
-    def close_window():
-        window.destroy()
+        self.species_entry = Entry(master, text = "Example: Bison bison")
+        self.species_entry.grid(row=1)
+        self.species_entry.focus_set()
 
-    #initiate main (master) window
-    window = tk.Tk()
-    window.title("Search-Clean-Inform")
+        self.go_button = Button(master, text = "Go!", command=self.go_button)
+        self.go_button.grid(row=1, column=1)
 
-    #place greeting frame in master window and greeting label within that
-    greeting_frame = tk.Frame(master=window, height=25)
-    greeting_frame.grid(row=0, column=0)
-    greeting_label = tk.Label(master=greeting_frame, text="Welcome to Search-Clean-Inform!")
-    greeting_label.grid(row=0, column=0)
+        self.close_button = Button(master, text="Close", command=master.quit)
+        self.close_button.grid(row=2, columnspan=2)
 
-    #place species entry frame in master window -- will split into label (query prompt) and entry box
-    species_entry_frame = tk.Frame(master=window)
-    species_entry_frame.grid(row=1, column=0)
-    #place species label (query prompt) within species entry frame
-    species_label = tk.Label(master=species_entry_frame, text = "Please enter the scientific name of your species of interest:")
-    species_label.grid(row=0, column=0)
-    #place species entry box within species entry frame, initialize example text
-    species_entry = tk.Entry(master=species_entry_frame)
-    species_entry.insert(0, "Ex: Bison bison")
-    species_entry.grid(row=0, column=1)
+    def go_button(self):
+        self.species_name = self.species_entry.get()
+        root.destroy()
 
-    #place button frame within master window
-    go_button_frame = tk.Frame(master=window, relief=tk.RAISED)
-    go_button_frame.grid(row=2, column=0)
-    #initalize go button and place in button frame
-    go_button = tk.Button(master=go_button_frame, text = "Go!", command = handle_go_button)
-    go_button.grid(row=0, column=0)
-    #initialize exit button and place in button frame
-    exit_button = tk.Button(master=go_button_frame, text = "Exit", command = close_window)
-    exit_button.grid(row=0, column=1)
 
-    #calls for information from GUI and their assignment to return variables
-    species_name = go_button.bind("<Button-1>", command = handle_go_button)
+root = Tk()
+bison_gui = BisonGUI(root)
+root.mainloop()
 
-    #keeps window up and running until closed
-    window.mainloop()
 
-    return species_name
+species_name = bison_gui.species_name
 
-species_name = build_GUI()
-#print statements for testing
 print(species_name)
 
 
