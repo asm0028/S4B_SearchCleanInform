@@ -46,9 +46,9 @@ class BisonGUI:
 
 
         #Format each GUI unit using grid method:
-        self.header_label.grid(row=0, columnspan=2)
-        self.species_entry_label.grid(row=1, column=0)
-        self.species_entry.grid(row=1, column=1)
+        self.header_label.grid(row=0, columnspan=3)
+        self.species_entry_label.grid(row=1, columnspan=2)
+        self.species_entry.grid(row=1, column=2)
         self.entry_date_checkbox.grid(row=2, column=0)
         self.occurrence_ID_checkbox.grid(row=2, column=1)
         self.latitude_checkbox.grid(row=3, column=0)
