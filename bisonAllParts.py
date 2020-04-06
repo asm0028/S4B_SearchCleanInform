@@ -41,6 +41,8 @@ class BisonGUI:
             variable = self.remove_no_longitude, onvalue = "True", offvalue = "False")
         self.occurrence_ID_checkbox = Checkbutton(master, text = "Occurrence ID",
             variable = self.remove_no_occurrence_ID, onvalue = "True", offvalue = "False")
+        self.catalog_number_checkbox = Checkbutton(master, text = "Catalog Number",
+            variable = self.remove_no_catalog_number, onvalue = "True", offvalue = "False")
         self.go_button = Button(master, text = "Go!", command=self.go_button)
         self.close_button = Button(master, text="Close", command=master.quit)
 
@@ -49,12 +51,13 @@ class BisonGUI:
         self.header_label.grid(row=0, columnspan=3)
         self.species_entry_label.grid(row=1, columnspan=2)
         self.species_entry.grid(row=1, column=2)
-        self.entry_date_checkbox.grid(row=2, column=0)
-        self.occurrence_ID_checkbox.grid(row=2, column=1)
-        self.latitude_checkbox.grid(row=3, column=0)
-        self.longitude_checkbox.grid(row=4, column=0)
-        self.go_button.grid(row=5, column=0)
-        self.close_button.grid(row=5, column=1)
+        self.entry_date_checkbox.grid(row=2, column=1)
+        self.occurrence_ID_checkbox.grid(row=2, column=2)
+        self.latitude_checkbox.grid(row=3, column=1)
+        self.catalog_number_checkbox.grid(row=3, column=2)
+        self.longitude_checkbox.grid(row=4, column=1)
+        self.go_button.grid(row=5, column=1)
+        self.close_button.grid(row=5, column=2)
 
     def go_button(self):
         self.species_name = self.species_entry.get()
@@ -62,6 +65,7 @@ class BisonGUI:
         self.remove_no_latitude = self.remove_no_latitude.get()
         self.remove_no_longitude = self.remove_no_longitude.get()
         self.remove_no_occurrence_ID = self.remove_no_occurrence_ID.get()
+        self.remove_no_catalog_number = self.remove_no_catalog_number.get()
         root.destroy()
 
 
@@ -77,6 +81,7 @@ remove_no_entry_date = bison_gui.remove_no_entry_date
 remove_no_latitude = bison_gui.remove_no_latitude
 remove_no_longitude = bison_gui.remove_no_longitude
 remove_no_occurrence_ID = bison_gui.remove_no_occurrence_ID
+remove_no_catalog_number = bison_gui.remove_no_catalog_number
 
 #Print statements for testing - can remove in final version
 print("User input for species name:", species_name)
@@ -84,6 +89,7 @@ print("Remove data with no entry date?", remove_no_entry_date)
 print("Remove data with no latitude?", remove_no_latitude)
 print("Remove data with no longitude?", remove_no_longitude)
 print("Remove data with no occurrence ID?", remove_no_occurrence_ID)
+print("Remove data with no catalog number?", remove_no_catalog_number)
 
 
 """there are two functions housed in this code that perform the following:
