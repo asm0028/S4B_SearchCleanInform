@@ -37,6 +37,8 @@ class BisonGUI:
             variable = self.remove_no_entry_date)
         self.latitude_checkbox = Checkbutton(master, text = "Latitude",
             variable = self.remove_no_latitude, onvalue = "True", offvalue = "False")
+        self.longitude_checkbox = Checkbutton(master, text = "Longitude",
+            variable = self.remove_no_longitude, onvalue = "True", offvalue = "False")
         self.go_button = Button(master, text = "Go!", command=self.go_button)
         self.close_button = Button(master, text="Close", command=master.quit)
 
@@ -47,13 +49,15 @@ class BisonGUI:
         self.species_entry.grid(row=1, column=1)
         self.entry_date_checkbox.grid(row=2, column=0)
         self.latitude_checkbox.grid(row=3, column=0)
-        self.go_button.grid(row=4, column=0)
-        self.close_button.grid(row=4, column=1)
+        self.longitude_checkbox.grid(row=4, column=0)
+        self.go_button.grid(row=5, column=0)
+        self.close_button.grid(row=5, column=1)
 
     def go_button(self):
         self.species_name = self.species_entry.get()
         self.remove_no_entry_date = self.remove_no_entry_date.get()
         self.remove_no_latitude = self.remove_no_latitude.get()
+        self.remove_no_longitude = self.remove_no_longitude.get()
         root.destroy()
 
 
@@ -67,11 +71,13 @@ root.mainloop()
 species_name = bison_gui.species_name
 remove_no_entry_date = bison_gui.remove_no_entry_date
 remove_no_latitude = bison_gui.remove_no_latitude
+remove_no_longitude = bison_gui.remove_no_longitude
 
 #Print statements for testing - can remove in final version
 print("User input for species name:", species_name)
 print("Remove data with no entry date?", remove_no_entry_date)
 print("Remove data with no latitude?", remove_no_latitude)
+print("Remove data with no longitude?", remove_no_longitude)
 
 
 """there are two functions housed in this code that perform the following:
