@@ -19,24 +19,42 @@ class BisonGUI:
         self.master = master
         master.title("Search-Clean-Inform")
 
+        #initialize all variables that the user input can affect
         self.species_name = ""
+        self.remove_no_entry_date = BooleanVar()
+        self.remove_no_latitude = BooleanVar()
+        self.remove_no_longitude = BooleanVar()
+        self.remove_no_occurrence_ID = BooleanVar()
+        self.remove_no_catalog_number = BooleanVar()
+        self.remove_no_institution_ID = BooleanVar()
 
-        self.label = Label(master, text="Welcome to Search-Clean-Inform")
-        self.label.grid(columnspan=2)
-
-        self.species_entry = Entry(master, text = "Example: Bison bison")
-        self.species_entry.grid(row=1)
-        self.species_entry.focus_set()
-
+        #Initialize all GUI units
+        self.header_label = Label(master, text="Welcome to Search-Clean-Inform")
+        self.species_entry_label = Label(master, text = "Enter the scientific name of interest:")
+        self.species_entry = Entry(master)
+        self.species_entry.insert(0, "Example: Bison bison")
+        self.entry_date_checkbox = Checkbutton(master, text = "Entry date",
+            variable = self.remove_no_entry_date)
+        self.latitude_checkbox = Checkbutton(master, text = "Latitude",
+            variable = self.remove_no_latitude, onvalue = "True", offvalue = "False")
         self.go_button = Button(master, text = "Go!", command=self.go_button)
-        self.go_button.grid(row=1, column=1)
-
         self.close_button = Button(master, text="Close", command=master.quit)
-        self.close_button.grid(row=2, columnspan=2)
+
+
+        #Format each GUI unit using grid method:
+        self.header_label.grid(row=0, columnspan=2)
+        self.species_entry_label.grid(row=1, column=0)
+        self.species_entry.grid(row=1, column=1)
+        self.entry_date_checkbox.grid(row=2, column=0)
+        self.go_button.grid(row=3, column=0)
+        self.close_button.grid(row=3, column=1)
 
     def go_button(self):
         self.species_name = self.species_entry.get()
+        self.remove_no_entry_date = self.remove_no_entry_date.get()
         root.destroy()
+
+
 
 
 root = Tk()
@@ -45,8 +63,10 @@ root.mainloop()
 
 
 species_name = bison_gui.species_name
+remove_no_entry_date = bison_gui.remove_no_entry_date
 
 print(species_name)
+print(remove_no_entry_date)
 
 
 """there are two functions housed in this code that perform the following:
