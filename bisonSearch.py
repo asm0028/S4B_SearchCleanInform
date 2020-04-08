@@ -12,6 +12,7 @@ matched_species = []
 match = requests.get(search_url)
 #print(match.content) #uncomment to test whether match is retrieved
 
+
 match_result = match.json()
 #match_result["inputName"] = "Bison bison"
 #print(match_result)
