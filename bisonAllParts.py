@@ -17,7 +17,7 @@ import matplotlib.font_manager as fm
 class BisonGUI:
     def __init__(self, master):
         self.master = master
-        master.title("Search-Clean-Inform")
+        master.title("GeoBison")
 
         #initialize all variables that the user input can affect
         self.species_name = ""
@@ -28,13 +28,15 @@ class BisonGUI:
         self.remove_no_catalog_number = BooleanVar()
         self.remove_no_institution_ID = BooleanVar()
 
-        #Initialize all GUI units
+        #Initialize all GUI elements
         self.header_label = Label(master, text="Welcome to Search-Clean-Inform")
         self.species_entry_label = Label(master, text = "Enter the scientific name of interest:")
         self.species_entry = Entry(master)
         self.species_entry.insert(0, "Example: Bison bison")
+        self.cleaning_label = Label(master,
+            text = "Check any of the following\nparameters if you want data points\nto be removed if they are absent:")
         self.entry_date_checkbox = Checkbutton(master, text = "Entry Date",
-            variable = self.remove_no_entry_date)
+            variable = self.remove_no_entry_date, onvalue = "True", offvalue = "False")
         self.latitude_checkbox = Checkbutton(master, text = "Latitude",
             variable = self.remove_no_latitude, onvalue = "True", offvalue = "False")
         self.longitude_checkbox = Checkbutton(master, text = "Longitude",
@@ -43,22 +45,27 @@ class BisonGUI:
             variable = self.remove_no_occurrence_ID, onvalue = "True", offvalue = "False")
         self.catalog_number_checkbox = Checkbutton(master, text = "Catalog Number",
             variable = self.remove_no_catalog_number, onvalue = "True", offvalue = "False")
+        self.institution_ID_checkbox = Checkbutton(master, text = "Institution ID",
+            variable = self.remove_no_institution_ID, onvalue = "True", offvalue = "False")
         self.go_button = Button(master, text = "Go!", command=self.go_button)
         self.close_button = Button(master, text="Close", command=master.quit)
 
 
         #Format each GUI unit using grid method:
         self.header_label.grid(row=0, columnspan=3)
-        self.species_entry_label.grid(row=1, columnspan=2)
-        self.species_entry.grid(row=1, column=2)
-        self.entry_date_checkbox.grid(row=2, column=1)
-        self.occurrence_ID_checkbox.grid(row=2, column=2)
-        self.latitude_checkbox.grid(row=3, column=1)
-        self.catalog_number_checkbox.grid(row=3, column=2)
-        self.longitude_checkbox.grid(row=4, column=1)
+        self.species_entry_label.grid(row=1, columnspan=2, sticky="E")
+        self.species_entry.grid(row=1, column=2, sticky = "W")
+        self.cleaning_label.grid(rowspan=3, column=0)
+        self.entry_date_checkbox.grid(row=2, column=1, sticky="W")
+        self.occurrence_ID_checkbox.grid(row=2, column=2, sticky="W")
+        self.latitude_checkbox.grid(row=3, column=1, sticky="W")
+        self.catalog_number_checkbox.grid(row=3, column=2, sticky="W")
+        self.longitude_checkbox.grid(row=4, column=1, sticky="W")
+        self.institution_ID_checkbox.grid(row=4, column=2, sticky="W")
         self.go_button.grid(row=5, column=1)
         self.close_button.grid(row=5, column=2)
 
+    #Retrieve all user-input values and save them to pre-established variables
     def go_button(self):
         self.species_name = self.species_entry.get()
         self.remove_no_entry_date = self.remove_no_entry_date.get()
@@ -66,22 +73,24 @@ class BisonGUI:
         self.remove_no_longitude = self.remove_no_longitude.get()
         self.remove_no_occurrence_ID = self.remove_no_occurrence_ID.get()
         self.remove_no_catalog_number = self.remove_no_catalog_number.get()
+        self.remove_no_institution_ID = self.remove_no_institution_ID.get()
         root.destroy()
 
 
 
-
+#Initialize and run GUI window as root
 root = Tk()
 bison_gui = BisonGUI(root)
 root.mainloop()
 
-
+#User input values saved to appropriate variables for use in other functions
 species_name = bison_gui.species_name
 remove_no_entry_date = bison_gui.remove_no_entry_date
 remove_no_latitude = bison_gui.remove_no_latitude
 remove_no_longitude = bison_gui.remove_no_longitude
 remove_no_occurrence_ID = bison_gui.remove_no_occurrence_ID
 remove_no_catalog_number = bison_gui.remove_no_catalog_number
+remove_no_institution_ID = bison_gui.remove_no_institution_ID
 
 #Print statements for testing - can remove in final version
 print("User input for species name:", species_name)
@@ -90,6 +99,7 @@ print("Remove data with no latitude?", remove_no_latitude)
 print("Remove data with no longitude?", remove_no_longitude)
 print("Remove data with no occurrence ID?", remove_no_occurrence_ID)
 print("Remove data with no catalog number?", remove_no_catalog_number)
+print("Remove data with no institution ID?", remove_no_institution_ID)
 
 
 """there are two functions housed in this code that perform the following:
