@@ -1,38 +1,36 @@
-import tkinter as tk
+from tkinter import *
 
-window = tk.Tk()
-window.title("Search-Clean-Inform")
+class BisonGUI:
+    def __init__(self, master):
+        self.master = master
+        master.title("Search-Clean-Inform")
 
-greeting_frame = tk.Frame(master=window, height=25)
-greeting_frame.grid(row=0, column=0)
+        self.species_name = ""
 
-greeting_label = tk.Label(master=greeting_frame, text="Welcome to Search-Clean-Inform!")
-greeting_label.grid(row=0, column=0)
+        self.label = Label(master, text="Welcome to Search-Clean-Inform")
+        self.label.grid(columnspan=2)
+
+        self.species_entry = Entry(master, text = "Example: Bison bison")
+        self.species_entry.grid(row=1)
+        self.species_entry.focus_set()
+
+        self.go_button = Button(master, text = "Go!", command=self.go_button)
+        self.go_button.grid(row=1, column=1)
+
+        self.close_button = Button(master, text="Close", command=master.quit)
+        self.close_button.grid(row=2, columnspan=2)
+
+    def go_button(self):
+        self.species_name = self.species_entry.get()
+        #print(self.species_name)
+        root.destroy()
 
 
-species_entry_frame = tk.Frame(master=window)
-species_entry_frame.grid(row=1, column=0)
+root = Tk()
+bison_gui = BisonGUI(root)
+root.mainloop()
 
-species_label = tk.Label(master=species_entry_frame, text = "Please enter the scientific name of your species of interest:")
-species_label.grid(row=0, column=0)
 
-species_entry = tk.Entry(master=species_entry_frame)
-species_entry.insert(0, "Ex: Bison bison")
-species_entry.grid(row=0, column=1)
-
-go_button_frame = tk.Frame(master=window, relief=tk.RAISED)
-go_button_frame.grid(row=2, column=0)
-
-go_button = tk.Button(master=go_button_frame, text = "Go!")
-go_button.grid(row=0, column=0)
-
-def handle_click(event):
-    species_name = species_entry.get()
-    print(species_name)
-    return species_name
-species_name = go_button.bind("<Button-1>", handle_click)
+species_name = bison_gui.species_name
 
 print(species_name)
-
-
-window.mainloop()
