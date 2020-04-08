@@ -1,16 +1,25 @@
+import argparse
 import requests
 import json
 import csv
 
-species_name = '"Bison bison"'
+parser = argparse.ArgumentParser()
 
-#search_url ="https://bison.usgs.gov/api/search.json?species=" + species_name + "&type=scientific_name&start=0&count=1"
+parser.add_argument('name', nargs=2, help='Scientific name you would like to input.'
+                    ' Must be formatted for genus in the first name position, and'
+                    ' species in the second name position.')
+
+args = parser.parse_args()
+
+spaced_input = ' '.join(args.name)
+
+species_name = ('"' + spaced_input.capitalize() + '"')
+
 search_url ="https://bison.usgs.gov/solr/occurrences/select?q=scientificName:" + species_name + "&wt=json&indent=true"
 
 #search_url = "https://bison.usgs.gov/solr/occurrences/select?q=scientificName:%22Bison%20bison%22&wt=json&indent=true&rows=2147483647"
 
 match = requests.get(search_url)
-##print(match.content) #uncomment to test whether match is retrieved
 
 match_result = match.json()
 
@@ -28,8 +37,6 @@ for a in range(0, 8):
     with open ('bisonCSV.csv', 'a') as file:
         wr = csv.writer(file)
         wr.writerow(arr)
-
-
 
 
 
