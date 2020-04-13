@@ -8,8 +8,6 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 from shapely.geometry import Point
 import descartes
-from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
-import matplotlib.font_manager as fm
 
 """there are two functions housed in this code that perform the following:
 	1.) geobison: provide the geobison with the cleaned bison dataset of
@@ -26,7 +24,7 @@ import matplotlib.font_manager as fm
 
 #starting geobison block
 
-def geobison(bison_data, output=os.getcwd(),  map_color='darkgray', map_size=(10,10), marker_color='red', marker_size=10, map_title="[Will insert name of user's species here]"):
+def geobison(bison_data, output=os.getcwd(),  map_color='darkgray', map_size=(10,10), marker_color='red', marker_size=10):
     
     #getting USA data
     url = 'https://eric.clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_5m.json'
@@ -47,7 +45,6 @@ def geobison(bison_data, output=os.getcwd(),  map_color='darkgray', map_size=(10
     fig, ax = plt.subplots(1, figsize=map_size)
     base = CONUS.plot(ax=ax,color=map_color,alpha=1, edgecolor='black')
     Species_data.plot(ax=base, color=marker_color, marker="*",markersize=marker_size)
-    ax.set_title(map_title, fontsize=20,pad=25)
     plt.savefig('my_new_map.png', dpi=350, bbox_inches='tight')
 
 #starting geobison_join block
