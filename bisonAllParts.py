@@ -30,6 +30,8 @@ class BisonGUI:
         self.remove_no_occurrence_ID = BooleanVar()
         self.remove_no_catalog_number = BooleanVar()
         self.remove_no_institution_ID = BooleanVar()
+        self.map_color = StringVar()
+        self.map_color.set("darkgray")
 
         #Initialize all GUI elements
         self.header_label = Label(master, text="Welcome to Search-Clean-Inform")
@@ -50,6 +52,8 @@ class BisonGUI:
             variable = self.remove_no_catalog_number, onvalue = "True", offvalue = "False")
         self.institution_ID_checkbox = Checkbutton(master, text = "Institution ID",
             variable = self.remove_no_institution_ID, onvalue = "True", offvalue = "False")
+        self.map_color_dropdown = OptionMenu(master, self.map_color, "black", "blue",
+            "white", "green", "red", "cyan", "magenta", "yellow", "navy")
         self.go_button = Button(master, text = "Go!", command=self.go_button)
         self.close_button = Button(master, text="Close", command=master.quit)
 
@@ -65,6 +69,7 @@ class BisonGUI:
         self.catalog_number_checkbox.grid(row=3, column=2, sticky="W")
         self.longitude_checkbox.grid(row=4, column=1, sticky="W")
         self.institution_ID_checkbox.grid(row=4, column=2, sticky="W")
+        self.map_color_dropdown.grid(row=5, column=1)
         self.go_button.grid(row=5, column=1)
         self.close_button.grid(row=5, column=2)
 
@@ -77,6 +82,7 @@ class BisonGUI:
         self.remove_no_occurrence_ID = self.remove_no_occurrence_ID.get()
         self.remove_no_catalog_number = self.remove_no_catalog_number.get()
         self.remove_no_institution_ID = self.remove_no_institution_ID.get()
+        self.map_color_dropdown = self.map_color_dropdown.get()
         root.destroy()
 
 
@@ -94,15 +100,17 @@ remove_no_longitude = bison_gui.remove_no_longitude
 remove_no_occurrence_ID = bison_gui.remove_no_occurrence_ID
 remove_no_catalog_number = bison_gui.remove_no_catalog_number
 remove_no_institution_ID = bison_gui.remove_no_institution_ID
+map_color_dropdown = bison_gui.map_color_dropdown
 
 #Print statements for testing - can remove in final version
 print("User input for species name:", species_name)
 print("Remove data with no entry date?", remove_no_entry_date)
 print("Remove data with no latitude?", remove_no_latitude)
-print("Remove data with no longitude?", remove_no_longitude)
-print("Remove data with no occurrence ID?", remove_no_occurrence_ID)
-print("Remove data with no catalog number?", remove_no_catalog_number)
-print("Remove data with no institution ID?", remove_no_institution_ID)
+print("Remove data with no longitude?" , remove_no_longitude)
+print("Remove data with no occurrence ID?" , remove_no_occurrence_ID)
+print("Remove data with no catalog number?" , remove_no_catalog_number)
+print("Remove data with no institution ID?" , remove_no_institution_ID)
+print("What is the map color?" , map_color_dropdown)
 
 
 """there are two functions housed in this code that perform the following:
@@ -146,7 +154,7 @@ for a in range(0, num_found):
     with open ('bisonCSV.csv', 'a', newline='') as file:
         wr = csv.writer(file)
         wr.writerow(arr)
-        
+
 #start bisonCleanCSV
 
 shutil.copy('bisonCSV.csv','bisonCSV.cleaned.csv')
