@@ -133,38 +133,28 @@ for a in range(0, num_found):
             arr.append(match_result['response']['docs'][a][i])
         else:
             arr.append('-')
-    with open ('bisonCSV.csv', 'a') as file:
+    with open ('bisonCSV.csv', 'a', newline='') as file:
         wr = csv.writer(file)
         wr.writerow(arr)
         
 #start bisonCleanCSV
-        
-parser = argparse.ArgumentParser()
-
-parser.add_argument('-e', '--evt', help='Removes all data without event date', action='store_true')
-parser.add_argument('-a', '--lat', help='Removes all data without latitudes', action='store_true')
-parser.add_argument('-g', '--lng', help='Removes all data without longitudes', action='store_true')
-parser.add_argument('-o', '--occ', help='Removes all data without occurrence ID', action='store_true')
-parser.add_argument('-c', '--cat', help='Removes all data without catalog number', action='store_true')
-parser.add_argument('-i', '--ins', help='Removes all data without institution ID', action='store_true')
-
-args = parser.parse_args()
 
 shutil.copy('bisonCSV.csv','bisonCSV.cleaned.csv')
 
 def action(column):
         input = open('bisonCSV.cleaned.csv', 'r')
-        output = open('bisonCSV.cleaned.int.csv', 'w')
+        output = open('bisonCSV.cleaned.int.csv', 'w', newline='')
         wr = csv.writer(output)
         for row in csv.reader(input):
             if row[column] != '-':
                 wr.writerow(row)
         input.close()
         output.close()
+        os.remove('bisonCSV.cleaned.csv')
         os.rename('bisonCSV.cleaned.int.csv', 'bisonCSV.cleaned.csv')
 
 n = 1
-for x in [args.evt, args.lng, args.lat, args.occ, args.cat, args.ins]:
+for x in [remove_no_entry_date, remove_no_longitude, remove_no_latitude, remove_no_occurrence_ID, remove_no_catalog_number]:
     if x is True:
         action(n)
         n = n + 1
