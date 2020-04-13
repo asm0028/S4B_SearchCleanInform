@@ -1,8 +1,11 @@
 #dependencies listed and imported here
 
 import os
+import shutil
 import requests
 import json
+import argparse
+import csv
 from tkinter import *
 import numpy as np
 import pandas as pd
@@ -113,6 +116,61 @@ print("Remove data with no institution ID?", remove_no_institution_ID)
 	    list of all records within the lower 48 states that the species
 	    occurs in, and how many records there are in each state.
 """
+
+#start bisonSearchandCSV
+
+species_name_fixed = ('"' + species_name.capitalize() + '"')
+
+#search_url ="https://bison.usgs.gov/solr/occurrences/select?q=scientificName:" + species_name + "&wt=json&indent=true"
+#Use this search URL if you only want 10 records.
+
+search_url = "https://bison.usgs.gov/solr/occurrences/select?q=scientificName:" + species_name_fixed + "&wt=json&indent=true&rows=2147483647"
+
+match = requests.get(search_url)
+
+match_result = match.json()
+
+num_found = match_result['response']['numFound']
+
+with open('bisonCSV.csv', 'w', newline='') as file:
+    wr = csv.writer(file)
+    wr.writerow(['scientificName','eventDate','decimalLongitude','decimalLatitude','occurrenceID','catalogNumber','institutionID'])
+
+for a in range(0, num_found):
+    arr = []
+    for i in ['scientificName','eventDate','decimalLongitude','decimalLatitude','occurrenceID','catalogNumber','institutionID']:
+        if i in match_result['response']['docs'][a]:
+            arr.append(match_result['response']['docs'][a][i])
+        else:
+            arr.append('-')
+    with open ('bisonCSV.csv', 'a', newline='') as file:
+        wr = csv.writer(file)
+        wr.writerow(arr)
+        
+#start bisonCleanCSV
+
+shutil.copy('bisonCSV.csv','bisonCSV.cleaned.csv')
+
+def action(column):
+        input = open('bisonCSV.cleaned.csv', 'r')
+        output = open('bisonCSV.cleaned.int.csv', 'w', newline='')
+        wr = csv.writer(output)
+        for row in csv.reader(input):
+            if row[column] != '-':
+                wr.writerow(row)
+        input.close()
+        output.close()
+        os.remove('bisonCSV.cleaned.csv')
+        os.rename('bisonCSV.cleaned.int.csv', 'bisonCSV.cleaned.csv')
+
+n = 1
+for x in [remove_no_entry_date, remove_no_longitude, remove_no_latitude, remove_no_occurrence_ID, remove_no_catalog_number]:
+    if x is True:
+        action(n)
+        n = n + 1
+    else:
+        n = n + 1
+        pass
 
 #starting geobison block
 
