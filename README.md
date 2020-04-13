@@ -58,7 +58,7 @@ marker_size=10
 
 Using the *cleaned_species_test.csv* file in the repo, the output visualization will be:
 
-![](example_map.png)
+![](Examples/example_map.png)
 
 For producing a quick summary file of how many records there are total, including a list of how many records are in each individual state within the contiguous U.S., you will use the *geobison_count* function:
 
