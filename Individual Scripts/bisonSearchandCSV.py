@@ -18,7 +18,7 @@ species_name = ('"' + spaced_input.capitalize() + '"')
 #search_url ="https://bison.usgs.gov/solr/occurrences/select?q=scientificName:" + species_name + "&wt=json&indent=true"
 #Use this search URL if you only want 10 records.
 
-search_url = "https://bison.usgs.gov/solr/occurrences/select?q=scientificName:" + specices_name + "&wt=json&indent=true&rows=2147483647"
+search_url = "https://bison.usgs.gov/solr/occurrences/select?q=scientificName:" + species_name + "&wt=json&indent=true&rows=2147483647"
 
 match = requests.get(search_url)
 
