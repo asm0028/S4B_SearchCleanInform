@@ -34,6 +34,7 @@ class BisonGUI:
         self.map_color.set("darkgray")
         self.marker_color = StringVar()
         self.marker_color.set("red")
+        self.map_width = ""
 
 
         #Initialize all GUI elements
@@ -61,6 +62,9 @@ class BisonGUI:
         self.marker_color_label = Label(master, text = "Marker color:")
         self.marker_color_dropdown = OptionMenu(master, self.marker_color, "black", "blue",
             "white", "green", "darkgray", "cyan", "magenta", "yellow", "navy")
+        self.map_width_label = Label(master, text = "Map width:")
+        self.map_width_entry = Entry(master)
+        self.map_width_entry.insert(0, "10")
         self.go_button = Button(master, text = "Go!", command=self.go_button)
         self.close_button = Button(master, text="Close", command=master.quit)
 
@@ -80,6 +84,8 @@ class BisonGUI:
         self.map_color_dropdown.grid(row=5, column=1, sticky="W")
         self.marker_color_label.grid(row=6, column=0, sticky="E")
         self.marker_color_dropdown.grid(row=6, column=1, sticky="W")
+        self.map_width_label.grid(row=5, column=2, sticky="E")
+        self.map_width_entry.grid(row=5, column=3, sticky="W")
         self.go_button.grid(row=7, column=2)
         self.close_button.grid(row=7, column=3)
 
@@ -94,6 +100,7 @@ class BisonGUI:
         self.remove_no_institution_ID = self.remove_no_institution_ID.get()
         self.map_color = self.map_color.get()
         self.marker_color = self.marker_color.get()
+        self.map_width = self.map_width.get()
         root.destroy()
 
 
@@ -113,6 +120,7 @@ remove_no_catalog_number = bison_gui.remove_no_catalog_number
 remove_no_institution_ID = bison_gui.remove_no_institution_ID
 map_color = bison_gui.map_color
 marker_color = bison_gui.marker_color
+map_width = int(bison_gui.map_width)
 
 #Print statements for testing - can remove in final version
 print("User input for species name:", species_name)
@@ -124,6 +132,7 @@ print("Remove data with no catalog number?" , remove_no_catalog_number)
 print("Remove data with no institution ID?" , remove_no_institution_ID)
 print("What is the map color?" , map_color)
 print("What is the marker color?" , marker_color)
+print("What is the map width?" , map_width)
 
 
 """there are two functions housed in this code that perform the following:
