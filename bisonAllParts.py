@@ -32,14 +32,17 @@ class BisonGUI:
         self.remove_no_institution_ID = BooleanVar()
         self.map_color = StringVar()
         self.map_color.set("darkgray")
+        self.marker_color = StringVar()
+        self.marker_color.set("red")
+
 
         #Initialize all GUI elements
-        self.header_label = Label(master, text="Welcome to Search-Clean-Inform")
+        self.header_label = Label(master, text="Welcome to GeoBison!")
         self.species_entry_label = Label(master, text = "Enter the scientific name of interest:")
         self.species_entry = Entry(master)
         self.species_entry.insert(0, "Example: Bison bison")
         self.cleaning_label = Label(master,
-            text = "Check any of the following\nparameters if you want data points\nto be removed if they are absent:")
+            text = "Data points will be excluded if\nthe checked parameters are missing.\n----->")
         self.entry_date_checkbox = Checkbutton(master, text = "Entry Date",
             variable = self.remove_no_entry_date, onvalue = "True", offvalue = "False")
         self.latitude_checkbox = Checkbutton(master, text = "Latitude",
@@ -52,26 +55,33 @@ class BisonGUI:
             variable = self.remove_no_catalog_number, onvalue = "True", offvalue = "False")
         self.institution_ID_checkbox = Checkbutton(master, text = "Institution ID",
             variable = self.remove_no_institution_ID, onvalue = "True", offvalue = "False")
+        self.map_color_label = Label(master, text = "Map color:")
         self.map_color_dropdown = OptionMenu(master, self.map_color, "black", "blue",
             "white", "green", "red", "cyan", "magenta", "yellow", "navy")
+        self.marker_color_label = Label(master, text = "Marker color:")
+        self.marker_color_dropdown = OptionMenu(master, self.marker_color, "black", "blue",
+            "white", "green", "darkgray", "cyan", "magenta", "yellow", "navy")
         self.go_button = Button(master, text = "Go!", command=self.go_button)
         self.close_button = Button(master, text="Close", command=master.quit)
 
 
         #Format each GUI unit using grid method:
-        self.header_label.grid(row=0, columnspan=3)
-        self.species_entry_label.grid(row=1, columnspan=2, sticky="E")
-        self.species_entry.grid(row=1, column=2, sticky = "W")
-        self.cleaning_label.grid(rowspan=3, column=0)
-        self.entry_date_checkbox.grid(row=2, column=1, sticky="W")
-        self.occurrence_ID_checkbox.grid(row=2, column=2, sticky="W")
-        self.latitude_checkbox.grid(row=3, column=1, sticky="W")
-        self.catalog_number_checkbox.grid(row=3, column=2, sticky="W")
-        self.longitude_checkbox.grid(row=4, column=1, sticky="W")
-        self.institution_ID_checkbox.grid(row=4, column=2, sticky="W")
-        self.map_color_dropdown.grid(row=5, column=1)
-        self.go_button.grid(row=5, column=1)
-        self.close_button.grid(row=5, column=2)
+        self.header_label.grid(row=0, columnspan=4)
+        self.species_entry_label.grid(row=1, columnspan=3, sticky="E")
+        self.species_entry.grid(row=1, column=3, sticky = "W")
+        self.cleaning_label.grid(rowspan=3, columnspan=2, sticky="E")
+        self.entry_date_checkbox.grid(row=2, column=2, sticky="W")
+        self.occurrence_ID_checkbox.grid(row=2, column=3, sticky="W")
+        self.latitude_checkbox.grid(row=3, column=2, sticky="W")
+        self.catalog_number_checkbox.grid(row=3, column=3, sticky="W")
+        self.longitude_checkbox.grid(row=4, column=2, sticky="W")
+        self.institution_ID_checkbox.grid(row=4, column=3, sticky="W")
+        self.map_color_label.grid(row=5, column=0, sticky="E")
+        self.map_color_dropdown.grid(row=5, column=1, sticky="W")
+        self.marker_color_label.grid(row=6, column=0, sticky="E")
+        self.marker_color_dropdown.grid(row=6, column=1, sticky="W")
+        self.go_button.grid(row=7, column=2)
+        self.close_button.grid(row=7, column=3)
 
     #Retrieve all user-input values and save them to pre-established variables
     def go_button(self):
@@ -82,7 +92,8 @@ class BisonGUI:
         self.remove_no_occurrence_ID = self.remove_no_occurrence_ID.get()
         self.remove_no_catalog_number = self.remove_no_catalog_number.get()
         self.remove_no_institution_ID = self.remove_no_institution_ID.get()
-        self.map_color_dropdown = self.map_color_dropdown.get()
+        self.map_color = self.map_color.get()
+        self.marker_color = self.marker_color.get()
         root.destroy()
 
 
@@ -100,7 +111,8 @@ remove_no_longitude = bison_gui.remove_no_longitude
 remove_no_occurrence_ID = bison_gui.remove_no_occurrence_ID
 remove_no_catalog_number = bison_gui.remove_no_catalog_number
 remove_no_institution_ID = bison_gui.remove_no_institution_ID
-map_color_dropdown = bison_gui.map_color_dropdown
+map_color = bison_gui.map_color
+marker_color = bison_gui.marker_color
 
 #Print statements for testing - can remove in final version
 print("User input for species name:", species_name)
@@ -110,7 +122,8 @@ print("Remove data with no longitude?" , remove_no_longitude)
 print("Remove data with no occurrence ID?" , remove_no_occurrence_ID)
 print("Remove data with no catalog number?" , remove_no_catalog_number)
 print("Remove data with no institution ID?" , remove_no_institution_ID)
-print("What is the map color?" , map_color_dropdown)
+print("What is the map color?" , map_color)
+print("What is the marker color?" , marker_color)
 
 
 """there are two functions housed in this code that perform the following:
