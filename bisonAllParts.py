@@ -7,6 +7,7 @@ import json
 import argparse
 import csv
 from tkinter import *
+import tkinter.font as font
 import numpy as np
 import pandas as pd
 import geopandas as gpd
@@ -36,10 +37,15 @@ class BisonGUI:
         self.marker_color.set("red")
         self.map_width = ""
         self.map_length = ""
+        self.marker_size = ""
+
+        title_font = font.Font(size = 20, weight="bold")
+        subheader_font = font.Font(size = 18)
 
 
         #Initialize all GUI elements
         self.header_label = Label(master, text="Welcome to GeoBison!")
+        self.header_label['font'] = title_font
         self.species_entry_label = Label(master, text = "Enter the scientific name of interest:")
         self.species_entry = Entry(master)
         self.species_entry.insert(0, "Example: Bison bison")
@@ -63,11 +69,15 @@ class BisonGUI:
         self.marker_color_label = Label(master, text = "Marker color:")
         self.marker_color_dropdown = OptionMenu(master, self.marker_color, "black", "blue",
             "white", "green", "darkgray", "cyan", "magenta", "yellow", "navy")
-        self.map_width_label = Label(master, text = "Map width and length:")
-        self.map_width_entry = Entry(master)
+        self.map_width_label = Label(master, text = "Map width:")
+        self.map_width_entry = Entry(master, width=4)
         self.map_width_entry.insert(0, "10")
-        self.map_length_entry = Entry(master)
+        self.map_length_label = Label(master, text = "Map length:")
+        self.map_length_entry = Entry(master, width=4)
         self.map_length_entry.insert(0, "10")
+        self.marker_size_label = Label(master, text = "Marker size:")
+        self.marker_size_entry = Entry(master, width=4)
+        self.marker_size_entry.insert(0, "10")
         self.go_button = Button(master, text = "Go!", command=self.go_button)
         self.close_button = Button(master, text="Close", command=master.quit)
 
@@ -75,7 +85,7 @@ class BisonGUI:
         #Format each GUI unit using grid method:
         self.header_label.grid(row=0, columnspan=5)
         self.species_entry_label.grid(row=1, columnspan=3, sticky="E")
-        self.species_entry.grid(row=1, column=3, columnspan=2, sticky = "W")
+        self.species_entry.grid(row=1, column=3, columnspan=3, sticky = "W")
         self.cleaning_label.grid(rowspan=3, columnspan=2, sticky="E")
         self.entry_date_checkbox.grid(row=2, column=2, sticky="W")
         self.occurrence_ID_checkbox.grid(row=2, column=3, columnspan=2, sticky="W")
@@ -83,15 +93,18 @@ class BisonGUI:
         self.catalog_number_checkbox.grid(row=3, column=3, columnspan=2, sticky="W")
         self.longitude_checkbox.grid(row=4, column=2, sticky="W")
         self.institution_ID_checkbox.grid(row=4, column=3, columnspan=2, sticky="W")
-        self.map_color_label.grid(row=5, column=0, sticky="E")
-        self.map_color_dropdown.grid(row=5, column=1, sticky="W")
+        self.map_color_label.grid(row=5, column=0, sticky="E", pady=(10,0))
+        self.map_color_dropdown.grid(row=5, column=1, sticky="W", pady=(10,0))
         self.marker_color_label.grid(row=6, column=0, sticky="E")
         self.marker_color_dropdown.grid(row=6, column=1, sticky="W")
-        self.map_width_label.grid(row=5, column=2, sticky="E")
-        self.map_width_entry.grid(row=5, column=3, sticky="W")
-        self.map_length_entry.grid(row=5, column=4, sticky="W")
-        self.go_button.grid(row=7, column=2)
-        self.close_button.grid(row=7, column=3)
+        self.map_width_label.grid(row=5, column=2, sticky="E", pady=(10,0))
+        self.map_width_entry.grid(row=5, column=3, sticky="W", pady=(10,0))
+        self.map_length_label.grid(row=5, column=4, sticky="E", pady=(10,0))
+        self.map_length_entry.grid(row=5, column=5, sticky="W", pady=(10,0))
+        self.marker_size_label.grid(row=6, column=3, sticky="E")
+        self.marker_size_entry.grid(row=6, column=4, sticky="W")
+        self.go_button.grid(row=7, column=2, pady=(5,0))
+        self.close_button.grid(row=7, column=3, sticky="W", pady=(5,0))
 
     #Retrieve all user-input values and save them to pre-established variables
     def go_button(self):
@@ -106,6 +119,7 @@ class BisonGUI:
         self.marker_color = self.marker_color.get()
         self.map_width = self.map_width_entry.get()
         self.map_length = self.map_length_entry.get()
+        self.marker_size = self.marker_size_entry.get()
         root.destroy()
 
 
@@ -127,6 +141,7 @@ map_color = bison_gui.map_color
 marker_color = bison_gui.marker_color
 map_width = int(bison_gui.map_width)
 map_length = int(bison_gui.map_length)
+marker_size = int(bison_gui.marker_size)
 
 #Print statements for testing - can remove in final version
 print("User input for species name:", species_name)
@@ -140,6 +155,7 @@ print("What is the map color?" , map_color)
 print("What is the marker color?" , marker_color)
 print("What is the map width?" , map_width)
 print("What is the map length?" , map_length)
+print("What is the marker size?", marker_size)
 
 
 """there are two functions housed in this code that perform the following:
