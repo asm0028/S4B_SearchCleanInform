@@ -227,7 +227,7 @@ for x in [remove_no_entry_date, remove_no_longitude, remove_no_latitude, remove_
 
 #starting geobison block
 
-def geobison('bisonCSV.cleaned.csv', output=os.getcwd(),  map_color=map_color, map_size=(map_width,map_length), marker_color=marker_color, marker_size=marker_size, map_title=species_name):
+def geobison(cleaned_csv,  map_color, map_size, marker_color, marker_size, map_title, output=os.getcwd()):
 
     #getting USA data
     url = 'https://eric.clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_5m.json'
@@ -238,7 +238,7 @@ def geobison('bisonCSV.cleaned.csv', output=os.getcwd(),  map_color=map_color, m
  'Puerto Rico']) == False]
 
     #adding input species data from BISON
-    Species_data = pd.read_csv('bisonCSV.cleaned.csv')
+    Species_data = pd.read_csv(cleaned_csv)
     Species_data['coords'] = Species_data[['decimalLongitude',
  'decimalLatitude']].values.tolist()
     Species_data['coords'] = Species_data['coords'].apply(Point)
@@ -251,9 +251,12 @@ def geobison('bisonCSV.cleaned.csv', output=os.getcwd(),  map_color=map_color, m
     ax.set_title(map_title, fontsize=20,pad=25)
     plt.savefig('my_new_map.png', dpi=350, bbox_inches='tight')
 
-#starting geobison_join block
+geobison('bisonCSV.cleaned.csv', map_color = map_color, map_size = (map_width, map_length),
+    marker_color = marker_color, marker_size = marker_size, map_title = species_name)
 
-def geobison_count('bisonCSV.cleaned.csv', output=os.getcwd()):
+#starting geobison_count block
+
+def geobison_count(cleaned_csv, output=os.getcwd()):
 
     #getting USA data
     url = 'https://eric/clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_5m.json'
@@ -263,7 +266,7 @@ def geobison_count('bisonCSV.cleaned.csv', output=os.getcwd()):
     CONUS = USA[USA['NAME'].isin(['Alaska', 'Hawaii', 'Puerto Rico']) == False]
 
     #adding input species data from BISON
-    bd = pd.read_csv('bisonCSV.cleaned.csv')
+    bd = pd.read_csv(cleaned_csv)
     points = bd.apply(lambda row: Point(row.decimalLongitude, row.decimalLatitude),axis=1)
     bd_species = gpd.GeoDataFrame(bd, geometry=points)
     bd_species.crs = {'init' :'epsg:4326'}
@@ -272,3 +275,5 @@ def geobison_count('bisonCSV.cleaned.csv', output=os.getcwd()):
     bd_and_CONUS = gpd.sjoin(bd_species,CONUS, how='left', op='within')
     how_many_in_states = bd_and_CONUS['NAME'].value_counts()
     print(how_many_in_states, file=open('state_counts.txt', 'w'))
+
+geobison_count('bisonCSV.cleaned.csv')
