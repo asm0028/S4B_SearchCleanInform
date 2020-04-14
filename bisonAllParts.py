@@ -227,7 +227,7 @@ for x in [remove_no_entry_date, remove_no_longitude, remove_no_latitude, remove_
 
 #starting geobison block
 
-def geobison(bison_data, output=os.getcwd(),  map_color='darkgray', map_size=(10,10), marker_color='red', marker_size=10, map_title="[Will insert name of user's species here]"):
+def geobison('bisonCSV.cleaned.csv', output=os.getcwd(),  map_color='darkgray', map_size=(10,10), marker_color='red', marker_size=10, map_title="[Will insert name of user's species here]"):
 
     #getting USA data
     url = 'https://eric.clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_5m.json'
@@ -238,7 +238,7 @@ def geobison(bison_data, output=os.getcwd(),  map_color='darkgray', map_size=(10
  'Puerto Rico']) == False]
 
     #adding input species data from BISON
-    Species_data = pd.read_csv(bison_data)
+    Species_data = pd.read_csv('bisonCSV.cleaned.csv')
     Species_data['coords'] = Species_data[['decimalLongitude',
  'decimalLatitude']].values.tolist()
     Species_data['coords'] = Species_data['coords'].apply(Point)
@@ -253,7 +253,7 @@ def geobison(bison_data, output=os.getcwd(),  map_color='darkgray', map_size=(10
 
 #starting geobison_join block
 
-def geobison_count(join_data, output=os.getcwd()):
+def geobison_count('bisonCSV.cleaned.csv', output=os.getcwd()):
 
     #getting USA data
     url = 'https://eric/clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_5m.json'
@@ -263,7 +263,7 @@ def geobison_count(join_data, output=os.getcwd()):
     CONUS = USA[USA['NAME'].isin(['Alaska', 'Hawaii', 'Puerto Rico']) == False]
 
     #adding input species data from BISON
-    bd = pd.read_csv(join_data)
+    bd = pd.read_csv('bisonCSV.cleaned.csv')
     points = bd.apply(lambda row: Point(row.decimalLongitude, row.decimalLatitude),axis=1)
     bd_species = gpd.GeoDataFrame(bd, geometry=points)
     bd_species.crs = {'init' :'epsg:4326'}
