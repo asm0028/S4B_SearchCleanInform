@@ -227,7 +227,7 @@ for x in [remove_no_entry_date, remove_no_longitude, remove_no_latitude, remove_
 
 #starting geobison block
 
-def geobison('bisonCSV.cleaned.csv', output=os.getcwd(),  map_color='darkgray', map_size=(10,10), marker_color='red', marker_size=10, map_title="[Will insert name of user's species here]"):
+def geobison('bisonCSV.cleaned.csv', output=os.getcwd(),  map_color=map_color, map_size=(map_width,map_length), marker_color=marker_color, marker_size=marker_size, map_title=species_name):
 
     #getting USA data
     url = 'https://eric.clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_5m.json'
