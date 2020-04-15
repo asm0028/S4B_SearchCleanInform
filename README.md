@@ -83,7 +83,7 @@ Inside the *Examples* directory are *bisonCSV.csv* and *uncleaned_species_test.c
 
 *bisonCleanCSV* is capable of cleaning the generated CSV file from *bisonSearchandCSV*, if desired. The user can decide which field to filter, resulting in the removal of all records that possess nothing in that field. A new cleaned CSV, *bisonCSV.cleaned.CSV* is created, only containing records that passed the filtering step. Multiple options may be selected for specific filtering.
 
-Each option's cleaning ability is defined by the function *action(column)*, where column refers to the cleaning option's column in the CSV. When an option is selected, an intermediate file *bisonCSV.cleaned.int.csv* is opened. A for loop checks each row in the column of the option for "-", and if "-" is not present that row is written into the new intermediate file. Once the loop has iterated through each record, the intermediate is renamed into *bisonCSV.cleaned.csv*. If no options are selected *bisonCSV.csv* and *bisonCSV.cleaned.csv* will contain the same contents.
+Each option's cleaning ability is defined by the function *action(column)*, where column refers to the cleaning option's column in the CSV. When an option is selected, an intermediate file *bisonCSV.cleaned.int.csv* is opened. A for loop checks each row in the column of the option for a blank space, and if a blank is not present that row is written into the new intermediate file. Once the loop has iterated through each record, the intermediate is renamed into *bisonCSV.cleaned.csv*. If no options are selected *bisonCSV.csv* and *bisonCSV.cleaned.csv* will contain the same contents.
 
 This script may also be run individually, and if run should be used as such:
 
