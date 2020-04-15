@@ -3,8 +3,6 @@
 import os
 import shutil
 import requests
-import json
-import argparse
 import csv
 from tkinter import *
 import tkinter.font as font
@@ -193,7 +191,7 @@ for a in range(0, num_found):
         if i in match_result['response']['docs'][a]:
             arr.append(match_result['response']['docs'][a][i])
         else:
-            arr.append('-')
+            arr.append('')
     with open ('bisonCSV.csv', 'a', newline='') as file:
         wr = csv.writer(file)
         wr.writerow(arr)
@@ -207,7 +205,7 @@ def action(column):
         output = open('bisonCSV.cleaned.int.csv', 'w', newline='')
         wr = csv.writer(output)
         for row in csv.reader(input):
-            if row[column] != '-':
+            if row[column] != '':
                 wr.writerow(row)
         input.close()
         output.close()
