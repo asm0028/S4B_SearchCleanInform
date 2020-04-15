@@ -14,7 +14,9 @@ Open up your terminal or preferred terminal environment. Then, install and impor
 
 ```
 import os
+import shutil
 import requests
+import csv
 import numpy as np
 import pandas as pd
 import geopandas as gpd
