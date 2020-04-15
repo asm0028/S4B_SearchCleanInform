@@ -1,46 +1,68 @@
 # *GeoBison*: a Python-implemented toolkit for acquiring, cleaning and visualizing geographic occurrence data of species in the contiguous United States
 
-Nicholas Gladstone, Anne Maguire, and Madison Watkins
+Nicholas Gladstone, Annie Maguire, and Madison Watkins
 
 ## Summary
 
 The functions in this toolkit allow for the acquisition, cleaning/filtering, and visualization of species occurrence data sourced from the U.S. Node the Global Biodiversity Information Facility - BISON (Biodiversity Information Serving Our Nation).
 
-## Quick tutorial for losers who don't want to read to full documentation
+## Quick tutorial for those who don't want to read to full documentation
 
 ### Getting started
 
 Open up your terminal or preferred terminal environment. Then, install and import the following packages:
 
 ```
-import os
-import shutil
-import requests
-import csv
-import numpy as np
-import pandas as pd
-import geopandas as gpd
-import matplotlib.pyplot as plt
-from shapely.geometry import Point
-import descartes
+os
+shutil
+requests
+csv
+tkinter
+numpy
+pandas
+geopandas
+matplotlib
+shapely
+descartes
 
-[Anne and Madison please put other dependencies here]
+[from Annie -- I think we have them all now, yes?]
 
 ```
-*Note: we reccommend utilizing the Anaconda software distribution (v.3.7), as most of these packages are already included along with beginner-friendly coding environments (e.g., Spyder). This can be downloaded at: https://www.anaconda.com/distribution/#download-section*
+*Note: we recommend utilizing the Anaconda software distribution (v.3.7), as most of these packages are already included along with beginner-friendly coding environments (e.g., Spyder). This can be downloaded at: https://www.anaconda.com/distribution/#download-section
+You can then install any missing packages at the command line:
+```
+conda install <packagename>
+```
 
 
-After installing the necessary packages, download and run the **RunAllParts.py** script found in this repo.
+After installing the necessary packages, download and run the desired script in this repo.
+*How this repo is organized: The **bisonAllParts.py** contains all functions in this toolkit, including a graphical user interface (GUI). If you would rather run an individual module through the command line (for example if you are using the Alabama Super Computer), you can find individual scripts in the directory *Individual Scripts*.
 
 You are now ready to go!
 
-### Using *bisonSearchandCSV*
+### Using *bisonAllParts.py*
 
-*Note: individual scripts are found in the directory *Individual Scripts* and contain all necessary imported modules*
+For a more user-friendly experience, we have provided a GUI, or graphical user interface, that eliminates the need for command-line coding. Please note that the GUI may not be compatible with remote computing systems such as the Alabama Supercomputer Center. A picture of the GUI is shown below, with sections outlined in color-coded boxes corresponding to each individual script. More detailed information on how these scripts work is provided later in this document.
+
+![](Examples/GUI_Labels.png)
+
+To run the GUI from command line, type:
+```
+>>>python3 bisonAllParts.py
+```
+The GUI will appear, and you can type the scientific name of your species of interest and select options for the data-cleaning and map-drawing portions of the toolkit. Once you click "Go", a series of print statements will appear in the terminal to confirm the options you selected (see GUI and corresponding print statements below).
+
+![](Examples/GUI_Terminal_Output.png)
+
+*Please note that it may take several minutes to retrieve all of the entries from the BISON database.*
+
+After the GUI has run successfully, there will be 4 new files in your working directory: *bisonCSV.csv* (uncleaned), *bisonCSV.cleaned.CSV* (after passing through *bisonCleanCSV.py*), *my_new_map.png* (a map produced by *geobison.py*), and *state_counts.txt* (a text file of how many counts of your species were recorded by state, produced by *geobison_count.py*). 
+
+### Using *bisonSearchandCSV*
 
 To initially obtain your data you must use *bisonSearchandCSV*. This will take the user's input (scientific name of desired organism) and search BISON's Solr API for all records of the instance. These records are then converted into a CSV format, located in the output file *bisonCSV.csv*.
 
-*bisonSearchandCSV* as described is a section of **RunAllParts.py** that works by iterating each instance of a record through a for loop, writing the contents of each record to *bisonCSV.csv*. If *bisonSearchandCSV.py* is run without the GUI in a Linux-based terminal, like the Alabama Super Computer (ASC) terminal, the script must be run as such:
+*bisonSearchandCSV* as described is a section of **bisonAllParts.py** that works by iterating each instance of a record through a for loop, writing the contents of each record to *bisonCSV.csv*. If *bisonSearchandCSV.py* is run without the GUI in a Linux-based terminal, like the Alabama Super Computer (ASC) terminal, the script must be run as such:
 
 ```
 python3 bisonSearchandCSV.py genus species
@@ -81,11 +103,6 @@ where the options are as follows:
 *bisonCSV.cleaned.csv* is further used in *GeoBison*.
 
 ### Using *GeoBison*
-
-[Anne and include information about your scripts and the GUI here]
-
-
-
 
 For producing a visualization of your occurrence data pre- or post- cleaning, you will use the *geobison* function:
 
