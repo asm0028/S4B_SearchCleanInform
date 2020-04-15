@@ -14,8 +14,6 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 from shapely.geometry import Point
 import descartes
-from mpl_toolkits.axes_grid1.anchored_artists import AnchoredSizeBar
-import matplotlib.font_manager as fm
 
 
 class BisonGUI:
@@ -242,6 +240,8 @@ def geobison(cleaned_csv,  map_color, map_size, marker_color, marker_size, map_t
     Species_data['coords'] = Species_data[['decimalLongitude',
  'decimalLatitude']].values.tolist()
     Species_data['coords'] = Species_data['coords'].apply(Point)
+    Species_data['coords'] = int(Species_data['coords'])
+    #print("Species data coords type:", type(Species_data['coords']))
     Species_data = gpd.GeoDataFrame(Species_data, geometry='coords')
 
     #mapping
@@ -251,7 +251,7 @@ def geobison(cleaned_csv,  map_color, map_size, marker_color, marker_size, map_t
     ax.set_title(map_title, fontsize=20,pad=25)
     plt.savefig('my_new_map.png', dpi=350, bbox_inches='tight')
 
-geobison('bisonCSV.cleaned.csv', map_color = map_color, map_size = (map_width, map_length),
+geobison(cleaned_csv = 'bisonCSV.cleaned.csv', map_color = map_color, map_size = (map_width, map_length),
     marker_color = marker_color, marker_size = marker_size, map_title = species_name)
 
 #starting geobison_count block
