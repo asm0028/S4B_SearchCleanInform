@@ -33,11 +33,14 @@ import descartes
 After installing the necessary packages, download and run the **RunAllParts.py** script found in this repo.
 
 You are now ready to go!
+
 ### Using *bisonSearchandCSV*
+
+*Note: individual scripts are found in the directory *Individual Scripts* and contain all necessary imported modules*
 
 To initially obtain your data you must use *bisonSearchandCSV*. This will take the user's input (scientific name of desired organism) and search BISON's Solr API for all records of the instance. These records are then converted into a CSV format, located in the output file *bisonCSV.csv*.
 
-*bisonSearchandCSV* as described is a section of **RunAllParts.py** that works by iterating each instance of a record through a for loop, writing the contents of each record to *bisonCSV.csv*. If *bisonSearchandCSV.py* is run without the GUI in a Linux-based terminal, like the Alabama Super Computer (ASC) terminal, the script must be run as such in the same directory:
+*bisonSearchandCSV* as described is a section of **RunAllParts.py** that works by iterating each instance of a record through a for loop, writing the contents of each record to *bisonCSV.csv*. If *bisonSearchandCSV.py* is run without the GUI in a Linux-based terminal, like the Alabama Super Computer (ASC) terminal, the script must be run as such:
 
 ```
 python3 bisonSearchandCSV.py genus species
