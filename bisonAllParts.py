@@ -215,7 +215,7 @@ def action(column):
         os.rename('bisonCSV.cleaned.int.csv', 'bisonCSV.cleaned.csv')
 
 n = 1
-for x in [remove_no_entry_date, remove_no_longitude, remove_no_latitude, remove_no_occurrence_ID, remove_no_catalog_number]:
+for x in [remove_no_entry_date, remove_no_longitude, remove_no_latitude, remove_no_occurrence_ID, remove_no_catalog_number, remove_no_institution_ID]:
     if x is True:
         action(n)
         n = n + 1
