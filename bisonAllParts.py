@@ -62,10 +62,10 @@ class BisonGUI:
         self.institution_ID_checkbox = Checkbutton(master, text = "Institution ID",
             variable = self.remove_no_institution_ID, onvalue = "True", offvalue = "False")
         self.map_color_label = Label(master, text = "Map color:")
-        self.map_color_dropdown = OptionMenu(master, self.map_color, "black", "blue",
+        self.map_color_dropdown = OptionMenu(master, self.map_color, "darkgray", "black", "blue",
             "white", "green", "red", "cyan", "magenta", "yellow", "navy")
         self.marker_color_label = Label(master, text = "Marker color:")
-        self.marker_color_dropdown = OptionMenu(master, self.marker_color, "black", "blue",
+        self.marker_color_dropdown = OptionMenu(master, self.marker_color, "red", "black", "blue",
             "white", "green", "darkgray", "cyan", "magenta", "yellow", "navy")
         self.map_width_label = Label(master, text = "Map width:")
         self.map_width_entry = Entry(master, width=4)
