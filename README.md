@@ -25,10 +25,8 @@ matplotlib
 shapely
 descartes
 
-[from Annie -- I think we have them all now, yes?]
-
 ```
-*Note: we recommend utilizing the Anaconda software distribution (v.3.7), as most of these packages are already included along with beginner-friendly coding environments (e.g., Spyder). This can be downloaded at: https://www.anaconda.com/distribution/#download-section
+*Note: we recommend utilizing the Miniconda software distribution (v.3.7), as most of these packages are already included along with beginner-friendly coding environments (e.g., Spyder). This can be downloaded at: https://www.anaconda.com/distribution/#download-section
 You can then install any missing packages at the command line:
 ```
 conda install <packagename>
