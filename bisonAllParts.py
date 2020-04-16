@@ -44,7 +44,7 @@ class BisonGUI:
         self.header_label['font'] = title_font
         self.species_entry_label = Label(master, text = "Enter the scientific name of interest:")
         self.species_entry = Entry(master)
-        self.species_entry.insert(0, "Example: Bison bison")
+        self.species_entry.insert(0, "Example: Percina gymnocephala")
         self.cleaning_label = Label(master,
             text = "Data points will be excluded if\nthe checked parameters are missing.\n----->")
         self.entry_date_checkbox = Checkbutton(master, text = "Entry Date",
