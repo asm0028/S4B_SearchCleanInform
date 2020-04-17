@@ -17,13 +17,12 @@ os
 shutil
 requests
 csv
+time
 tkinter
-numpy
 pandas
 geopandas
 matplotlib
 shapely
-descartes
 
 ```
 *Note: we recommend utilizing the Miniconda software distribution (v.3.7), as most of these packages are already included along with beginner-friendly coding environments (e.g., Spyder). This can be downloaded at: https://www.anaconda.com/distribution/#download-section
