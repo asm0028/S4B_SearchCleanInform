@@ -7,12 +7,10 @@ import csv
 import time
 from tkinter import *
 import tkinter.font as font
-import numpy as np
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
 from shapely.geometry import Point
-import descartes
 
 
 class BisonGUI:
@@ -180,7 +178,6 @@ def fetch_solr(page, rows):
     params = {'q' : 'scientificName:' + species_name_fixed, 'rows' : rows, 'start' : start, 'wt' : 'json'}
     match = requests.get('https://bison.usgs.gov/solr/occurrences/select?', params=params)
     match_result = match.json()
-    match.close()
     return match_result
 
 def result_csv_writer(record):            
@@ -243,11 +240,12 @@ for x in [remove_no_entry_date, remove_no_longitude, remove_no_latitude, remove_
 
 #starting geobison block
 
+url = 'https://eric.clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_5m.json'
+r = requests.get(url, allow_redirects=True)
+
 def geobison(cleaned_csv,  map_color, map_size, marker_color, marker_size, map_title, output=os.getcwd()):
 
     #getting USA data
-    url = 'https://eric.clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_5m.json'
-    r = requests.get(url, allow_redirects=True)
     open('USA_data.json', 'wb').write(r.content)
     USA = gpd.read_file('USA_data.json')
     CONUS = USA[USA['NAME'].isin(['Alaska', 'Hawaii',
@@ -277,8 +275,6 @@ geobison(cleaned_csv = 'bisonCSV.cleaned.csv', map_color = map_color, map_size =
 def geobison_count(cleaned_csv, output=os.getcwd()):
 
     #getting USA data
-    url = 'https://eric/clst.org/assets/wiki/uploads/Stuff/gz_2010_us_040_00_5m.json'
-    r = requests.get(url, allow_redirects=True)
     open('USA_data.json', 'wb').write(r.content)
     USA = gpd.read_file('USA_data.json')
     CONUS = USA[USA['NAME'].isin(['Alaska', 'Hawaii', 'Puerto Rico']) == False]
