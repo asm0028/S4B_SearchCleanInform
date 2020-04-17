@@ -4,6 +4,7 @@ import os
 import shutil
 import requests
 import csv
+import time
 from tkinter import *
 import tkinter.font as font
 import numpy as np
@@ -170,31 +171,50 @@ print("What is the marker size?", marker_size)
 
 species_name_fixed = ('"' + species_name.capitalize() + '"')
 
-#search_url ="https://bison.usgs.gov/solr/occurrences/select?q=scientificName:" + species_name + "&wt=json&indent=true"
-#Use this search URL if you only want 10 records.
-
-search_url = "https://bison.usgs.gov/solr/occurrences/select?q=scientificName:" + species_name_fixed + "&wt=json&indent=true&rows=2147483647"
-
-match = requests.get(search_url)
-
-match_result = match.json()
-
-num_found = match_result['response']['numFound']
-
 with open('bisonCSV.csv', 'w', newline='') as file:
     wr = csv.writer(file)
     wr.writerow(['scientificName','eventDate','decimalLongitude','decimalLatitude','occurrenceID','catalogNumber','institutionID'])
+        
+def fetch_solr(page, rows):
+    start = page * rows
+    params = {'q' : 'scientificName:' + species_name_fixed, 'rows' : rows, 'start' : start, 'wt' : 'json'}
+    match = requests.get('https://bison.usgs.gov/solr/occurrences/select?', params=params)
+    match_result = match.json()
+    match.close()
+    return match_result
 
-for a in range(0, num_found):
-    arr = []
-    for i in ['scientificName','eventDate','decimalLongitude','decimalLatitude','occurrenceID','catalogNumber','institutionID']:
-        if i in match_result['response']['docs'][a]:
-            arr.append(match_result['response']['docs'][a][i])
-        else:
-            arr.append('')
-    with open ('bisonCSV.csv', 'a', newline='') as file:
-        wr = csv.writer(file)
-        wr.writerow(arr)
+def result_csv_writer(record):            
+            arr = []
+            for keyword in ['scientificName','eventDate','decimalLongitude','decimalLatitude','occurrenceID','catalogNumber','institutionID']:
+                if keyword in (result['response']['docs'][record]):
+                    arr.append(result['response']['docs'][record][keyword])
+                else:
+                    arr.append('')
+            with open ('bisonCSV.csv', 'a', newline='') as file:
+                wr = csv.writer(file)
+                wr.writerow(arr)
+            
+result = fetch_solr(0, 1)
+num_found = result['response']['numFound']
+
+if num_found < 1000:
+    result = fetch_solr(0, num_found)
+    for record in range (0, num_found):
+        result_csv_writer(record)
+        
+if num_found >= 1000:    
+    total_pages = (num_found//1000)
+    for page in range (0, total_pages + 1):
+        result = fetch_solr(page, 1000)
+        while page != total_pages:
+            for record in range (0, 1000):
+                result_csv_writer(record)
+            break   
+            time.sleep(1)
+        while page == total_pages:
+            for record in range (0, num_found - (total_pages * 1000)):
+                result_csv_writer(record)
+            break   
 
 #start bisonCleanCSV
 
