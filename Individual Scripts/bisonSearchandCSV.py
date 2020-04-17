@@ -25,6 +25,7 @@ def fetch_solr(page, rows):
     params = {'q' : 'scientificName:' + species_name, 'rows' : rows, 'start' : start, 'wt' : 'json'}
     match = requests.get('https://bison.usgs.gov/solr/occurrences/select?', params=params)
     match_result = match.json()
+    match.close()
     return match_result
 
 def result_csv_writer(record):            
@@ -41,7 +42,7 @@ def result_csv_writer(record):
 result = fetch_solr(0, 1)
 num_found = result['response']['numFound']
 
-if num_found <= 1000:
+if num_found < 1000:
     result = fetch_solr(0, num_found)
     for record in range (0, num_found):
         result_csv_writer(record)
