@@ -2,6 +2,7 @@ import argparse
 import requests
 import json
 import csv
+import time
 
 parser = argparse.ArgumentParser()
 
