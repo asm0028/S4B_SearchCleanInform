@@ -256,7 +256,6 @@ def geobison(cleaned_csv,  map_color, map_size, marker_color, marker_size, map_t
     Species_data['coords'] = Species_data[['decimalLongitude',
  'decimalLatitude']].values.tolist()
     Species_data['coords'] = Species_data['coords'].apply(Point)
-    Species_data['coords'] = int(Species_data['coords'])
     #print("Species data coords type:", type(Species_data['coords']))
     Species_data = gpd.GeoDataFrame(Species_data, geometry='coords')
 
