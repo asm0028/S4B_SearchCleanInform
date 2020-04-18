@@ -199,7 +199,7 @@ if num_found < 1000:
     for record in range (0, num_found):
         result_csv_writer(record)
 
-if num_found >= 1000:    
+if num_found >= 1000:
     total_pages = (num_found//1000)
     for page in range (0, total_pages + 1):
         result = fetch_solr(page, 1000)
@@ -256,11 +256,6 @@ def geobison(cleaned_csv,  map_color, map_size, marker_color, marker_size, map_t
     Species_data['coords'] = Species_data[['decimalLongitude',
  'decimalLatitude']].values.tolist()
     Species_data['coords'] = Species_data['coords'].apply(Point)
-<<<<<<< HEAD
-    #Species_data['coords'] = int(Species_data['coords'])
-=======
->>>>>>> eb8d9c49cc0d10e8d54c4acb04137ba102687023
-    #print("Species data coords type:", type(Species_data['coords']))
     Species_data = gpd.GeoDataFrame(Species_data, geometry='coords')
 
     #mapping
