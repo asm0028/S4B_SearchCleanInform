@@ -41,6 +41,7 @@ pip install rtree
 ```
 
 After installing the necessary packages, download and run the desired script in this repo.
+
 *How this repo is organized: The **bisonAllParts.py** contains all functions in this toolkit, including a graphical user interface (GUI). If you would rather run an individual module through the command line (for example if you are using the Alabama Super Computer), you can find individual scripts in the directory *Individual Scripts*.
 
 You are now ready to go!
