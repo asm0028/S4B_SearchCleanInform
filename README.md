@@ -25,12 +25,15 @@ matplotlib
 shapely
 
 ```
-*Note: we recommend utilizing the Miniconda software distribution (v.3.7), as most of these packages are already included along with beginner-friendly coding environments (e.g., Spyder). This can be downloaded at: https://www.anaconda.com/distribution/#download-section
+For Windows users, we recommend utilizing the Miniconda software distribution (v.3.7), as most of these packages are already included along with beginner-friendly coding environments (e.g., Spyder). This can be downloaded at: https://www.anaconda.com/distribution/#download-section
 You can then install any missing packages at the command line:
 ```
 conda install <packagename>
 ```
-
+For Mac users, we recommend simply using a text editor of your choice (Atom, for example) and installing the above packages from the command line using:
+```
+pip install <packagename>
+```
 
 After installing the necessary packages, download and run the desired script in this repo.
 *How this repo is organized: The **bisonAllParts.py** contains all functions in this toolkit, including a graphical user interface (GUI). If you would rather run an individual module through the command line (for example if you are using the Alabama Super Computer), you can find individual scripts in the directory *Individual Scripts*.
