@@ -34,9 +34,14 @@ For Mac users, we recommend simply using a text editor of your choice (Atom, for
 ```
 pip install <packagename>
 ```
+Mac users (or anyone not using Miniconda) may also experience an error regarding package compatability with the **geobison_count** function, which can be fixed by installing Homebrew (https://brew.sh), then typing the following at the command line:
+```
+brew install spatialindex
+pip install rtree
+```
 
 After installing the necessary packages, download and run the desired script in this repo.
-*How this repo is organized: The **bisonAllParts.py** contains all functions in this toolkit, including a graphical user interface (GUI). If you would rather run an individual module through the command line (for example if you are using the Alabama Super Computer), you can find individual scripts in the directory *Individual Scripts*.
+*How this repo is organized: The **bisonAllParts.py** contains all functions in this toolkit, including a graphical user interface (GUI). If you would rather run an individual module through the command line (for example if you are using the Alabama Super Computer), you can find individual scripts in the directory **Individual Scripts***.
 
 You are now ready to go!
 
